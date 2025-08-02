@@ -17,11 +17,6 @@ AI-powered resume analyzer that evaluates a candidate's resume against a job des
 
 ---
 
-## 🚀 Live Demo
-
-👉 [Click here to try it out](https://your-render-link-here.onrender.com)
-
----
 
 ## 🛠️ Tech Stack
 
@@ -75,10 +70,6 @@ python main.py
 Visit `http://127.0.0.1:5000` in your browser.
 
 ---
-
-## 🌐 Deployment on Render
-
-> Render auto-installs your dependencies and runs `main.py`
 
 ### Required environment variable:
 
