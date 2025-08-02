@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Analyzer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 850px;
+      margin-top: 50px;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+    .result-box {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+    .section-title {
+      font-weight: 600;
+      margin-top: 25px;
+    }
+    .badge-skill {
+      background-color: #0d6efd;
+      color: white;
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4 text-center text-primary">🚀 AI Resume Analyzer</h2>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="resume" class="form-label">Upload Resume (PDF)</label>
+        <input type="file" class="form-control" id="resume" name="resume" required>
+      </div>
+      <div class="mb-3">
+        <label for="job_description" class="form-label">Paste Job Description</label>
+        <textarea class="form-control" id="job_description" name="job_description" rows="6" required></textarea>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">Analyze</button>
+      </div>
+    </form>
+
+    {% if score %}
+      <hr>
+      <h4 class="section-title">📊 Match Score</h4>
+      <div class="progress mb-4" style="height: 30px;">
+        <div class="progress-bar" role="progressbar"
+          style="width: {{ score }}%; background: {% if score < 50 %}#dc3545{% elif score < 75 %}#ffc107{% else %}#198754{% endif %}; font-weight: bold;"
+          aria-valuenow="{{ score }}" aria-valuemin="0" aria-valuemax="100">
+          {{ score }}%
+        </div>
+      </div>
+    {% endif %}
+
+    {% if missing %}
+      <h4 class="section-title">📌 Missing Skills</h4>
+      <div class="mb-3">
+        {% for skill in missing %}
+          <span class="badge-skill">{{ skill }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if suggestions %}
+      <h4 class="section-title">🛠️ Suggestions</h4>
+      <div class="result-box">
+        {{ suggestions }}
+      </div>
+    {% endif %}
+
+    {% if summary %}
+      <h4 class="section-title">📝 Summary</h4>
+      <div class="result-box">
+        {{ summary }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
